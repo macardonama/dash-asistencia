@@ -33,7 +33,15 @@ def generar_pdf_estudiante(nombre, registros):
     for i, row in registros.iterrows():
         fecha = row['createdAt'].strftime("%Y-%m-%d") if pd.notnull(row['createdAt']) else "Sin fecha"
         estado = row.get('estado', 'N/A')
-        emocion = row.get('emoji', 'N/A')
+        emoji = row.get('emoji', 'N/A')
+        emocion_dict = {
+            "😀": "Feliz",
+            "😐": "Neutral",
+            "😔": "Triste",
+            "😠": "Molesto",
+            "🥱": "Cansado"
+            }
+        emocion = emocion_dict.get(emoji, emoji)  # usa palabra si está en el diccionario
         c.drawString(50, y, f"{fecha}: Estado = {estado}, Emoción = {emocion}")
         y -= 20
         if y < 100:
