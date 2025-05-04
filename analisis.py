@@ -100,11 +100,24 @@ else:
     # Gráfico de emociones (pie chart)
     st.subheader("Distribución de emociones")
     emociones = df_filtrado['emoji'].value_counts()
-    fig, ax = plt.subplots()
-    ax.pie(emociones, labels=emociones.index, autopct='%1.1f%%', startangle=90)
-    ax.axis('equal')
-    st.pyplot(fig)
+    fig, ax = plt.subplots(facecolor='none')  # sin fondo blanco
+    fig.patch.set_facecolor('none')  # fondo transparente
+    ax.set_facecolor('none')
 
+    # Colores personalizados (puedes cambiarlos si quieres)
+    colors = ['#ff9999','#66b3ff','#99ff99','#ffcc99','#c2c2f0','#ffb3e6']
+
+    ax.pie(
+        emociones,
+        labels=emociones.index,
+        autopct='%1.1f%%',
+        startangle=90,
+        colors=colors,
+        textprops={'color': 'white', 'fontsize': 12}
+    )
+
+    ax.axis('equal')  # mantiene el círculo
+    st.pyplot(fig)
     # Gráfico de estado (Presente/Ausente)
     if 'estado' in df_filtrado.columns:
         st.subheader("Estado de asistencia")
