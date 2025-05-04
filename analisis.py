@@ -97,13 +97,12 @@ else:
     with col2:
         st.metric("Estudiantes únicos", df_filtrado['name'].nunique())
 
-    # Gráfico de emociones
-    st.subheader("Frecuencia de emociones")
+    # Gráfico de emociones (pie chart)
+    st.subheader("Distribución de emociones")
     emociones = df_filtrado['emoji'].value_counts()
     fig, ax = plt.subplots()
-    emociones.plot(kind='bar', ax=ax, color='skyblue')
-    plt.xlabel("Emoción")
-    plt.ylabel("Frecuencia")
+    ax.pie(emociones, labels=emociones.index, autopct='%1.1f%%', startangle=90)
+    ax.axis('equal')
     st.pyplot(fig)
 
     # Gráfico de estado (Presente/Ausente)
