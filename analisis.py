@@ -160,3 +160,22 @@ else:
             file_name=f"reporte_{estudiante_seleccionado}.pdf",
             mime="application/pdf"
         )
+    # --- Alerta de inasistencias repetidas ---
+    st.subheader("🚨 Estudiantes con 3 o más ausencias")
+
+    # Filtrar solo los que están 'Ausente'
+    ausentes = df_filtrado[df_filtrado['estado'] == "Ausente"]
+
+    # Contar ausencias por estudiante
+    conteo_ausencias = ausentes['name'].value_counts()
+    reincidentes = conteo_ausencias[conteo_ausencias >= 3]
+
+    if not reincidentes.empty:
+        df_alerta = pd.DataFrame({
+            "Estudiante": reincidentes.index,
+            "Ausencias": reincidentes.values
+        })
+        st.dataframe(df_alerta)
+    else:
+        st.success("✅ Ningún estudiante con 3 o más ausencias en este rango.")
+
