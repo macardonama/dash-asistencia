@@ -35,12 +35,15 @@ def generar_pdf_estudiante(nombre, registros):
         estado = row.get('estado', 'N/A')
         emoji = row.get('emoji', 'N/A')
         emocion_dict = {
-            "😀": "Feliz",
-            "😐": "Neutral",
-            "😔": "Triste",
-            "😠": "Molesto",
-            "🥱": "Cansado"
-            }
+        "😊": "Feliz",
+        "😐": "Neutral",
+        "😢": "Triste",
+        "😡": "Molesto",
+        "😴": "Cansado",
+        "😃": "Entusiasmado",
+        "😬": "Nervioso",
+        "🤒": "Enfermo"
+        }
         emocion = emocion_dict.get(emoji, emoji)  # usa palabra si está en el diccionario
         c.drawString(50, y, f"{fecha}: Estado = {estado}, Emoción = {emocion}")
         y -= 20
